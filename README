@@ -1,0 +1,6 @@
+Readme for Y2MAX
+Description: This is a batch script that will take your wimax.img and restore it via fastboot. I'm not releasing it until it works 100% just incase I muck up since I know there are 2 wimax partitions but I think wimax is the partition for both just not sure.
+
+Instructions: just push the wimax-xxxxxx.img you pull out of the CWM backup and put into the folder where the batch file is then run it. It's that simple! Note: You cannot have any other .img files inside of the folder or it might F up your phone! This file does rename your wimax backup to wimaxbackup.img so don't worry that is normal! 
+
+Credits: Literally just me this time as well as the shift community for inspiring me to do this! 
