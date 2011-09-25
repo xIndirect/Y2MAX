@@ -1,3 +1,5 @@
+@echo off
+color 0c
 :N2
 echo Please remove all files aside from wimax-xxxxx.img out of this folder that are a .img file otherwise you will be fucked!
 echo have you done that yet?
@@ -8,19 +10,22 @@ goto choice2
 set C2=%C%2
 goto %C2%
 :Y2
-echo is your phone on android or the bootloader screen? if it's in recovery please reboot to one of the 2. Y is for android N is for bootloader
+cls
+echo is your phone on android or the bootloader screen? if it's in recovery please reboot to one of the 2. A is for android B is for bootloader
 move *.img wimaxbackup.img
 :choice1
-set /p C=(Y/N)? 
-for %%? in (Y N) do if /I "%C%"=="%%?" goto ok1
+set /p C=(A/B)? 
+for %%? in (A B) do if /I "%C%"=="%%?" goto ok1
 goto choice1
 :ok1
 set C1=%C%1
 goto %C1%
-:Y1
+:A1
+cls
 adb wait-for-device
 adb reboot bootloader
-:N1
+:B1
+cls
 fastboot devices
 echo if you don't see your device, please don't continue or else there will be no point and you will be stuck at WAITINGFORDEVICE!
 fastboot flash wimax wimaxbackup.img
