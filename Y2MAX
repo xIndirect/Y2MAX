@@ -1,39 +1,23 @@
-@echo off
-color 0c
-:N2
-echo Please remove all files aside from wimax-xxxxx.img out of this folder that are a .img file otherwise you will be fucked!
-echo have you done that yet?
-set /p C=(Y/N)? 
-for %%? in (Y N) do if /I "%C%"=="%%?" goto ok2
-goto choice2
-:ok2
-set C2=%C%2
-goto %C2%
-:Y2
-cls
-echo is your phone on android or the bootloader screen? if it's in recovery please reboot to one of the 2. A is for android B is for bootloader
-move *.img wimaxbackup.img
+echo do you want to restore or backup your wimax keys? Press B to backup or R to restore!
 :choice1
-set /p C=(A/B)? 
-for %%? in (A B) do if /I "%C%"=="%%?" goto ok1
+set /p C=(B/R)? 
+for %%? in (B R) do if /I "%C%"=="%%?" goto ok1
 goto choice1
 :ok1
 set C1=%C%1
 goto %C1%
-:A1
-cls
-adb wait-for-device
-adb reboot bootloader
 :B1
-cls
-fastboot devices
-echo if you don't see your device, please don't continue or else there will be no point and you will be stuck at WAITINGFORDEVICE!
-fastboot flash wimax wimaxbackup.img
-echo if this screws up, I love you anyway and I'm sorry!
-adb reboot
-adb wait-for-device
-adb shell wimax_mtd > wimaxinfo.txt
-echo all the information is inside of the wimaxinfo.txt file! Please leave feedback via IRC, Huddle, or Email. -email: blazesk8er82@gmail.com
-ping -n 1 -w 5000 > NUL
-echo Made by Indirect just for Notsointeresting! If this didnt work, I love you dude! Indirect@SDX-Developers/RootzWiki
-ping -n 1 -w 5000 > NUL
+echo this is to just backup your wimax keys. You must be rooted so then you are able to backup!
+adb shell dd if=/dev/block/mmcblk0p25 of=/sdcard/WiMax/wimax.bin;dd if=/dev/block/mmcblk0p30 of=/sdcard/WiMax/udata_wimax.bin
+successfully backed up Wimax keys!
+goto end
+:R1
+echo this is the restore part of the RSA keys+wimax partition but you MUST have the manual backup first!
+adb shell dd if=/sdcard/WiMax/wimax.bin of=/dev/block/mmcblk0p25;dd if=/sdcard/WiMax/udata_wimax.bin of=/dev/block/mmcblk0p30
+echo successfully restored wimax keys!
+ping -n 1 -w 3000 > Nul
+:end
+echo Made by Indirect
+echo       from SDX forums
+echo                  Enjoy it.
+ping -n 1 -w 3000 >Nul
